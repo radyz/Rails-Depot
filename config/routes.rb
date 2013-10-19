@@ -8,11 +8,6 @@ DepotApplication::Application.routes.draw do
 
   resources :users
 
-  resources :orders
-
-  resources :line_items
-
-  resources :carts
 
   get "store/index"
 
@@ -20,7 +15,15 @@ DepotApplication::Application.routes.draw do
     get :who_bought, on: :member
   end
 
-  root 'store#index', as: :store
+  scope '(:locale)' do
+    resources :orders
+
+    resources :line_items
+
+    resources :carts
+
+    root 'store#index', as: :store
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
